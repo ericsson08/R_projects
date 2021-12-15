@@ -1,0 +1,32 @@
+---
+title: "<PON UN TITULO>"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+knitr::opts_chunk$set(echo = TRUE)
+
+# funcion describir
+# CREA UNA FUNCIÓN describir QUE DEVUELVA EL summary DEL DATA
+# UTILIZA EL ggplot, para visualizar la población frente a la esperanza de vida, separando cada gráfico por el año desde 1952 hasta 2007
+# ACUERDATE DE AÑADIR TITULOS Y UNA LEYENDA PARA UNA MEJOR INTERPRETACIÓN
+
+```
+
+## 1.1. GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r}
+# CREA UN GRAFICO DE DISPERSION USANDO LA FUNCIÓN DE DESCRIBIR GENERADA ANTERIOMENTE
+
+```
+
+## 1.2. TABLA DESCRIPTIVA DE PAÍSES 
+
+```{r}
+# GENERA LA TABLA DESCRIPTIVA, NO TE OLVIDES DE PONERLE UN TITULO
+
+```
+

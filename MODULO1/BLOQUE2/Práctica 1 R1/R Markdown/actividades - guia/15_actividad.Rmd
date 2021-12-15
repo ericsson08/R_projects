@@ -1,0 +1,112 @@
+---
+title: "<PON UN TITULO>"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(datos)
+suppressPackageStartupMessages(library(tidyverse))
+library(ggrepel)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+paises_informe <- paises
+ # Recodifica Oceanía por Asia
+paises_informe$continente[paises_informe$continente=="Oceanía"] <- "Asia"
+ # Elimina Oceanía de los levels
+paises_informe$continente <- factor(paises_informe$continente)
+
+# Paleta de colores
+< CREA UN VECTOR LLAMADO colores_continente QUE CONTENGA LOS COLORES DE LOS CONTINENTES COM VALORES Y NOMO ETIQUETAS O "names" EL NOMBRE DE LOS CONTINENTES  SEGUN SE ESPECIFICA EN LA ACTIVIDAD 1.4 >
+
+# Etiquetas
+< CREA UN VECTOR LLAMADO etiquetas_paises QUE CONTENGA LOS NOMBRES DE LOS PAÍSES >
+
+# funcion describir
+describir <- function(data, colores, etiquetas) {
+  
+  # filtra paises con etiqueta
+  data_etiquetas <- data[data$pais %in% etiquetas, ]
+  
+  # Agrega continentes
+  < CALCULA CON FUNCIONES DPLYR LOS SIGUIENTES AGREGADOS POR CONTINENTE Y AÑO:
+  -  n_paises: Número de paises
+  - esperanza_de_vida: Esperanza de vida media
+  - pib_per_capita: PIB PER CÁPITA MEDIO
+  - poblacion: SUMA DEL TOTAL DE POBLACION
+  >
+
+  resultados <- list()
+  
+  resultados[["pib_per_capita"]] <- 
+    ggplot(data, aes(x=anio, y=pib_per_capita, group=anio)) +
+    < INSERTA EL geom_boxplot > +
+    < TRANSFORMA LA ESCALA DEL EJE Y PARA QUE TENGA UNA ESCALA LOGARITMICA EN BASE 10 >
+  
+  resultados[["esperanza_de_vida"]] <- 
+    ggplot(data, aes(x=anio, y=esperanza_de_vida, group=anio)) +
+    < INSERTA EL geom_boxplot >
+  
+  resultados[["paises"]] <- ggplot(data, aes(x=pib_per_capita, y=esperanza_de_vida
+      , color=continente, size=poblacion)) +
+    < INSERTA EL geom_boxplot > +
+    < TRANSFORMA LA ESCALA DEL EJE X PARA QUE TENGA UNA ESCALA LOGARITMICA EN BASE 10 > +
+    scale_colour_manual(values = colores) +
+    geom_label_repel(data=data_etiquetas
+      , mapping=aes(x=pib_per_capita, y=esperanza_de_vida, label=pais)
+      , size=3, color="black") +
+    < PON UN TITULOS AL GRAFICO, AL EJE X Y AL EJE Y > +
+    facet_wrap(~anio)
+  
+  resultados[["continentes"]] <- ggplot(data_continente, aes(x=pib_per_capita, y=esperanza_de_vida
+      , color=continente)) +
+    < INSERTA EL geom_path > +
+    < TRANSFORMA LA ESCALA DEL EJE X PARA QUE TENGA UNA ESCALA LOGARITMICA EN BASE 10 > +
+    scale_colour_manual(values = colores) +
+    geom_text_repel(aes(label=anio), size=2, color="black") +
+    < PON UN TITULOS AL GRAFICO, AL EJE X Y AL EJE Y >
+  
+  resultados[["summary"]] <- summary(data[,c("anio","continente","esperanza_de_vida","pib_per_capita")])
+  
+  return(resultados)
+}
+
+resumen <- describir(paises_informe, colores_continente, etiquetas_paises)
+```
+
+## 1.5.1. DESCRIPTIVO BOXPLOT
+
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot PIB per càpita (Continente y año) - Escala Log10", fig.align="center",message=FALSE}
+resumen[["pib_per_capita"]]
+```
+
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
+```{r, echo=FALSE, fig.width=11, fig.height=2, fig.cap="Boxplot Esperanza de vida (Continente y año)", fig.align="center",message=FALSE}
+resumen[["esperanza_de_vida"]]
+```
+
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
+
+## 1.5.2. GRÁFICO DE DISPERSIÓN DE PAÍSES
+
+```{r, echo=FALSE, fig.width=11,fig.height=8, fig.cap="Panel países (Fuente: Elaboración propia con datos de Gapminder)", fig.align="center",message=FALSE, dpi=150}
+resumen[["paises"]]
+```
+
+<AÑADE UN BREVE COMENTARIO DE LOS RESULTADOS>
+
+## 1.5.3. EVOLUCIÓN DE LOS CONTINENTES
+
+```{}
+# CREA UN GRAFICO DE LINEA QUE REPRESENTE LA EVOLUCIÓN PARA LOS "continentes"
+
+```
+
+## 1.5.4. TABLA DESCRIPTIVA DE PAÍSES 
+
+```{}
+# GENERA LA TABLA DESCRIPTIVA, NO TE OLVIDES DE PONERLE UN TITULO
+```
