@@ -18,7 +18,14 @@ paises07_2VAR <- paises %>%
 # función describir
 #  UTILIZA EL MISMO EJEMPLO DE DESCRIBIR DEL MODULO PARA CREAR UN GRAFICO DE PUNTOS ROJOS A PARTIR DE data
 #  HAZ QUE LA FUNCION DEVUELVA el summary de DATA 
-describir <- function(data, type,  col = 'red', ...) {
+describir <- function() {
+  plot(pressure)
+}
+
+describir()
+
+
+describir <- function(data, type = "p",  col = 'red', ...) {
   plot(data, type = type, col = col, ...)
   return(summary(data))
 }
