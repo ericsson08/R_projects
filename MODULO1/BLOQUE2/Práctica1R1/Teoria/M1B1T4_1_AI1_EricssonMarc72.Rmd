@@ -14,8 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(pander)
 library(datos)
-library(plotly)
-library(htmlwidgets)
 library(ggplot2)
 
 options(knitr.kable.NA = '')
@@ -76,6 +74,8 @@ ejercicio_2 <- ggplot(data = millas, mapping = aes(x =autopista, y = cilindrada,
        , y = "cilindrada")
 
 ejercicio_2
+
+#Claramente podemos observar que cuanto más cilindrada, menos consumo.
 
 ```
 
