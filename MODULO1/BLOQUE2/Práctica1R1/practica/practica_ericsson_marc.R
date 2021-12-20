@@ -1,4 +1,4 @@
-print("Hello World!")
+
 
 library(datos)
 library(plotly)
@@ -17,33 +17,35 @@ head(millas)
 ###htmlwidgets::saveWidget(as.widget(fig), "test.html")
 
 
-fig_1 <- ggplot(data = millas, mapping = aes(x =autopista, y = cilindrada)) + 
+ejercicio_1 <- ggplot(data = millas, mapping = aes(x =autopista, y = cilindrada)) + 
   geom_point() +
   labs(title = "Consumo en función de cilindrada"
        , x = "autopista"
        , y = "cilindrada")
   
-fig_1
+ejercicio_1
 
 
 
 ## EJERCICIO 1.2.
 
-fig_2 <- ggplot(data = millas, mapping = aes(x =autopista, y = cilindrada, color = modelo, shape = fabricante, size = anio)) + 
+ejercicio_2 <- ggplot(data = millas, mapping = aes(x =autopista, y = cilindrada, color = modelo, shape = fabricante, size = anio)) + 
   geom_point() +
   scale_shape_manual(values=seq(0,15)) +
   labs(title = "Consumo en función de cilindrada"
        , x = "autopista"
        , y = "cilindrada")
 
-fig_2
+ejercicio_2
 
 ## EJERCICIO 1.3.
 
 vec <- factor(c("8","5","9","8","1","7"))
 print(vec)
+
 vec_numeric <- as.numeric(as.character(vec))
 print(vec_numeric)
+
 vec_numeric_2 <- as.numeric(vec)
 print(vec_numeric_2)
 #le asigna numericamente a cada factor distinto un orden, sangoogle.
@@ -55,9 +57,9 @@ class(millas)
 
 #df
 
-obj <- cbind(millas$cilindrada,millas$cilindros)
-print(obj)
-class(obj)
+obj1 <- cbind(millas$cilindrada,millas$cilindros)
+print(obj1)
+class(obj1)
 #matrix     
                   
 # EJERCICIO 1.5. Crea una función que tome un vector de tipo integer como input y 
@@ -93,9 +95,7 @@ ejercicio_5(1)
 ejercicio_5(2)
 ejercicio_5(3)
 ejercicio_5(4)
-evens <- function(x) vec(x, x %% 2 == 0)
-evens
-evens <- function(x) subset(x, x %% 2 == 0)
+
 
 residual(as.character(as.numeric(vec)))
 # EJERCICIO 1.6
