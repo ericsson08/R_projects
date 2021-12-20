@@ -124,7 +124,8 @@ ejercicio_8
 obj <- as.data.frame(cbind(millas$cilindrada,millas$cilindros, NA))
 colnames(obj) <- c("cilindrada","cilindros","vol_por_cil")
 obj$vol_por_cil <- as.numeric(obj$cilindrada) / as.numeric(obj$cilindros)
-print(obj)
+summary(obj$vol_por_cil)
+
 #for(i in 1:nrow(obj)){
  # print(obj$cilindrada[i])
  # obj$ratio[i] <- as.numeric(obj$cilindrada[i]) / as.numeric(obj$cilindros[i])
@@ -146,4 +147,3 @@ summary(ejercicio_10$vol_por_cil)
 
 
 
-# EJERCICIO 1.10
