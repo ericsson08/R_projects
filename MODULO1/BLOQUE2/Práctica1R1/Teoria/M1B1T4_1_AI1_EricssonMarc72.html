@@ -1728,30 +1728,30 @@ ejercicio_5 &lt;- function(x) {
   
   resultados &lt;- list()
   
-  resultados[[&quot;Último valor del vector&quot;]] &lt;- tail(x, n = 1)
+  resultados[[&quot;Last value&quot;]] &lt;- tail(x, n = 1)
   
-  resultados[[&quot;Impares&quot;]] &lt;- x[c(TRUE,FALSE)]
+  resultados[[&quot;Evens&quot;]] &lt;- x[c(TRUE,FALSE)]
   
-  resultados[[&quot;Todos los elementos menos el primero&quot;]] &lt;- x[-1]
+  resultados[[&quot;All - first value&quot;]] &lt;- x[-1]
   
-  resultados[[&quot;Sólo números impares&quot;]] &lt;- x[x%%2 != 0]
+  resultados[[&quot;Only evens&quot;]] &lt;- x[x%%2 != 0]
   
   print(resultados)
 }
 
-vec &lt;- c(3,2,4,5,10,9)
+vec1 &lt;- c(3,2,4,5,10,9)
 
-ejercicio_5(vec)</code></pre>
-<pre><code>## $`Último valor del vector`
+ejercicio_5(vec1)</code></pre>
+<pre><code>## $`Last value`
 ## [1] 9
 ## 
-## $Impares
+## $Evens
 ## [1]  3  4 10
 ## 
-## $`Todos los elementos menos el primero`
+## $`All - first value`
 ## [1]  2  4  5 10  9
 ## 
-## $`Sólo números impares`
+## $`Only evens`
 ## [1] 3 5 9</code></pre>
 </div>
 <div id="ejercicio-1.6." class="section level2">

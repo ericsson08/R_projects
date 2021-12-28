@@ -5,8 +5,8 @@ date: "20/12/2021"
 output:
   html_document:
     df_print: paged
-  word_document: null
   pdf_document: default
+  word_document: null
 subtitle: 'HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R - MICROACTIVIDADES'
 ---
 

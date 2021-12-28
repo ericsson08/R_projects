@@ -1,3 +1,6 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
 \documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
@@ -6,29 +9,32 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
+  \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
 \IfFileExists{microtype.sty}{%
-\usepackage{microtype}
+\usepackage[]{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\usepackage[margin=1in]{geometry}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \usepackage{hyperref}
-\hypersetup{unicode=true,
+\hypersetup{
             pdftitle={MÓDULO 1: HERRAMIENTAS BIG DATA},
             pdfauthor={Ericsson Marc},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -78,12 +84,6 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -98,33 +98,23 @@
 \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
 
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
+\makeatother
 
-\setlength{\droptitle}{-2em}
-
-  \title{MÓDULO 1: HERRAMIENTAS BIG DATA}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-  \subtitle{HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R - MICROACTIVIDADES}
-  \author{Ericsson Marc}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{20/12/2021}
-
+\title{MÓDULO 1: HERRAMIENTAS BIG DATA}
+\providecommand{\subtitle}[1]{}
+\subtitle{HERRAMIENTAS DE ANALISIS: PROGRAMACIÓN EN R - MICROACTIVIDADES}
+\author{Ericsson Marc}
+\date{20/12/2021}
 
 \begin{document}
 \maketitle
@@ -147,34 +137,6 @@ Puedes consultar más sobre los datos en la ayuda: \texttt{?millas}.
 \KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(tidyverse))}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning: package 'tidyverse' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'tibble' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'tidyr' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'readr' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'purrr' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'dplyr' was built under R version 3.6.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: package 'forcats' was built under R version 3.6.2
-\end{verbatim}
 
 \begin{verbatim}
 ?millas
@@ -320,8 +282,7 @@ Es millas un objeto de la clase \emph{data.frame} o \emph{matrix}?
 ## 4 audi       a4            2    2008         4 auto(av)    d            21
 ## 5 audi       a4            2.8  1999         6 auto(l5)    d            16
 ## 6 audi       a4            2.8  1999         6 manual(m5)  d            18
-## # ... with 3 more variables: autopista <int>, combustible <chr>,
-## #   clase <chr>
+## # ... with 3 more variables: autopista <int>, combustible <chr>, clase <chr>
 \end{verbatim}
 
 \begin{Shaded}
@@ -357,7 +318,7 @@ Es millas un objeto de la clase \emph{data.frame} o \emph{matrix}?
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "matrix"
+## [1] "matrix" "array"
 \end{verbatim}
 
 \hypertarget{ejercicio-1.5.}{%
@@ -388,34 +349,34 @@ un objetido de tipo lista que contega los siguientes elementos:
   
 \NormalTok{  resultados <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
   
-\NormalTok{  resultados[[}\StringTok{"Último valor del vector"}\NormalTok{]] <-}\StringTok{ }\KeywordTok{tail}\NormalTok{(x, }\DataTypeTok{n =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  resultados[[}\StringTok{"Last value"}\NormalTok{]] <-}\StringTok{ }\KeywordTok{tail}\NormalTok{(x, }\DataTypeTok{n =} \DecValTok{1}\NormalTok{)}
   
-\NormalTok{  resultados[[}\StringTok{"Impares"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)]}
+\NormalTok{  resultados[[}\StringTok{"Evens"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)]}
   
-\NormalTok{  resultados[[}\StringTok{"Todos los elementos menos el primero"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\NormalTok{  resultados[[}\StringTok{"All - first value"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
   
-\NormalTok{  resultados[[}\StringTok{"Sólo números impares"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[x}\OperatorTok{%%}\DecValTok{2} \OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{]}
+\NormalTok{  resultados[[}\StringTok{"Only evens"}\NormalTok{]] <-}\StringTok{ }\NormalTok{x[x}\OperatorTok{%%}\DecValTok{2} \OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{]}
   
   \KeywordTok{print}\NormalTok{(resultados)}
 \NormalTok{\}}
 
-\NormalTok{vec <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{9}\NormalTok{)}
+\NormalTok{vec1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{9}\NormalTok{)}
 
-\KeywordTok{ejercicio_5}\NormalTok{(vec)}
+\KeywordTok{ejercicio_5}\NormalTok{(vec1)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## $`Último valor del vector`
+## $`Last value`
 ## [1] 9
 ## 
-## $Impares
+## $Evens
 ## [1]  3  4 10
 ## 
-## $`Todos los elementos menos el primero`
+## $`All - first value`
 ## [1]  2  4  5 10  9
 ## 
-## $`Sólo números impares`
+## $`Only evens`
 ## [1] 3 5 9
 \end{verbatim}
 
@@ -479,8 +440,8 @@ coche. Presenta la nueva columna mediante la función head().
 ## 4 audi       a4            2    2008         4 auto(av)    d            21
 ## 5 audi       a4            2.8  1999         6 auto(l5)    d            16
 ## 6 audi       a4            2.8  1999         6 manual(m5)  d            18
-## # ... with 4 more variables: autopista <int>, combustible <chr>,
-## #   clase <chr>, fabr_mod <chr>
+## # ... with 4 more variables: autopista <int>, combustible <chr>, clase <chr>,
+## #   fabr_mod <chr>
 \end{verbatim}
 
 \hypertarget{ejercicio-1.8.}{%
@@ -515,15 +476,15 @@ todas las condiciones siguientes:
 
 \begin{verbatim}
 ## # A tibble: 5 x 12
-##   fabricante modelo  cilindrada  anio cilindros transmision traccion ciudad
-##   <chr>      <chr>        <dbl> <int>     <int> <chr>       <chr>     <int>
-## 1 chevrolet  k1500 ~        5.7  1999         8 auto(l4)    4            11
-## 2 ford       f150 p~        5.4  1999         8 auto(l4)    4            11
-## 3 land rover range ~        4    1999         8 auto(l4)    4            11
-## 4 land rover range ~        4.6  1999         8 auto(l4)    4            11
-## 5 toyota     land c~        4.7  1999         8 auto(l4)    4            11
-## # ... with 4 more variables: autopista <int>, combustible <chr>,
-## #   clase <chr>, fabr_mod <chr>
+##   fabricante modelo       cilindrada  anio cilindros transmision traccion ciudad
+##   <chr>      <chr>             <dbl> <int>     <int> <chr>       <chr>     <int>
+## 1 chevrolet  k1500 tahoe~        5.7  1999         8 auto(l4)    4            11
+## 2 ford       f150 pickup~        5.4  1999         8 auto(l4)    4            11
+## 3 land rover range rover         4    1999         8 auto(l4)    4            11
+## 4 land rover range rover         4.6  1999         8 auto(l4)    4            11
+## 5 toyota     land cruise~        4.7  1999         8 auto(l4)    4            11
+## # ... with 4 more variables: autopista <int>, combustible <chr>, clase <chr>,
+## #   fabr_mod <chr>
 \end{verbatim}
 
 \hypertarget{ejercicio-1.9.}{%
@@ -609,6 +570,5 @@ Presenta los datos con un summary del nuevo objeto \texttt{obj}.
 ##  Max.   :7.000   Max.   :8.000   Max.   : NA  
 ##                                  NA's   :19
 \end{verbatim}
-
 
 \end{document}
